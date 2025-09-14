@@ -4,24 +4,21 @@ import { UploadAudio } from '../components/features/upload-audio';
 import { notFound } from 'next/navigation';
 import { SERVER_URL } from '@/libs/constants/url.constants';
 import { Metadata } from 'next';
+import { GetAllJobsDocument } from '@/graphql/gql/graphql';
+import { print } from 'graphql';
 
 const fetchJobs = async () => {
 	try {
+
+		const query = print(GetAllJobsDocument)
+		
 		const response = await fetch(SERVER_URL, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			// todo: Переделать на import
-			body: JSON.stringify({
-				query: `query getJobs {getJobs {
-				id
-				filename
-				status
-				updatedAt
-				transcriptionText
-			}}`,
-			}),
+			body: JSON.stringify({ query }),
+			cache: 'no-cache'
 		});
 
 		const { data } = await response.json();
