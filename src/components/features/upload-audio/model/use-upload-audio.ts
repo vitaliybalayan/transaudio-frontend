@@ -7,7 +7,6 @@ import { useState } from 'react';
 
 export function useUploadAudio() {
 	const router = useRouter();
-	const [uploadPct, setUploadPct] = useState(0);
 	const [isUploading, setIsUploading] = useState(false);
 	const [createTranscriptionJob] = useMutation(
 		CreateTranscriptionJobDocument,
@@ -20,8 +19,8 @@ export function useUploadAudio() {
 				variables: { audio: file },
 			});
 			setIsUploading(false);
-			setUploadPct(100);
 			router.refresh();
+			window.scrollTo({ top: 0, behavior: 'smooth' })
 		} catch (err) {
 			setIsUploading(false);
 			onError(err);
@@ -29,5 +28,5 @@ export function useUploadAudio() {
 		}
 	};
 
-	return { handleUpload, isUploading, uploadPct };
+	return { handleUpload, isUploading };
 }
