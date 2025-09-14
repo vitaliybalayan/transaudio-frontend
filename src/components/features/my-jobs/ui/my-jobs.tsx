@@ -8,7 +8,6 @@ import {
 	Empty,
 	List,
 	Modal,
-	Skeleton,
 	Space,
 	Tooltip,
 	Typography,
@@ -18,23 +17,15 @@ import {
 	PlayCircleOutlined,
 	AudioOutlined,
 	LoadingOutlined,
+	CloudDownloadOutlined,
 } from '@ant-design/icons';
 import { statusIcon, statusTag } from '@/components/status-tag';
 import classes from './my-jobs.module.scss';
 import { useRouter } from 'next/navigation';
-
-type JobStatus = 'CREATED' | 'SUCCESS' | 'ERROR';
-
-interface Job {
-	id: string;
-	filename: string;
-	status: JobStatus;
-	updatedAt: string;
-	transcriptionText?: string;
-}
+import { JobModel } from '@/graphql/gql/graphql';
 
 interface Props {
-	jobs: Job[];
+	jobs: JobModel[]
 }
 
 const { Text, Paragraph } = Typography;
@@ -42,9 +33,9 @@ const { Text, Paragraph } = Typography;
 export const MyJobs = ({ jobs = [] }: Props) => {
 	const router = useRouter();
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+	const [selectedJob, setSelectedJob] = useState<JobModel | null>(null);
 
-	const openTranscript = (job: Job) => {
+	const openTranscript = (job: JobModel) => {
 		if (job.status !== 'SUCCESS') return;
 		setSelectedJob(job);
 		setIsModalOpen(true);
@@ -82,16 +73,30 @@ export const MyJobs = ({ jobs = [] }: Props) => {
 								extra={
 									<Space direction="vertical" align="end" size={8}>
 										{statusTag(job.status)}
-										<Tooltip title="Открыть транскрипт">
-											<Button
-												type="primary"
-												icon={<PlayCircleOutlined />}
-												onClick={() => openTranscript(job)}
-												disabled={job.status !== 'SUCCESS'}
-											>
-												Открыть
-											</Button>
-										</Tooltip>
+										<Space>
+											<Tooltip title="Открыть транскрипт">
+												<Button
+													type="primary"
+													icon={<PlayCircleOutlined />}
+													onClick={() => openTranscript(job)}
+													disabled={job.status !== 'SUCCESS'}
+												>
+													Открыть
+												</Button>
+											</Tooltip>
+
+											<Tooltip title="Скачать аудиофайл по Presigned URL">
+												<Button
+													type={'link'}
+													href={job.presignedUrl || ''}
+													icon={<CloudDownloadOutlined />}
+													target={'_blank'}
+													disabled={job.status !== 'SUCCESS'}
+												>
+													Скачать
+												</Button>
+											</Tooltip>
+										</Space>
 									</Space>
 								}
 							>

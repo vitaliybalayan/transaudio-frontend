@@ -25,6 +25,7 @@ export type JobModel = {
   createdAt: Scalars['DateTime']['output'];
   filename: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  presignedUrl?: Maybe<Scalars['String']['output']>;
   status: JobStatus;
   transcriptionText?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['DateTime']['output'];
@@ -61,8 +62,8 @@ export type CreateTranscriptionJobMutation = { __typename?: 'Mutation', createTr
 export type GetAllJobsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllJobsQuery = { __typename?: 'Query', getJobs: Array<{ __typename?: 'JobModel', id: string, filename: string, status: JobStatus, updatedAt: any, transcriptionText?: string | null }> };
+export type GetAllJobsQuery = { __typename?: 'Query', getJobs: Array<{ __typename?: 'JobModel', id: string, filename: string, status: JobStatus, updatedAt: any, transcriptionText?: string | null, presignedUrl?: string | null }> };
 
 
 export const CreateTranscriptionJobDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createTranscriptionJob"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"audio"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Upload"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createTranscriptionJob"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"audio"},"value":{"kind":"Variable","name":{"kind":"Name","value":"audio"}}}]}]}}]} as unknown as DocumentNode<CreateTranscriptionJobMutation, CreateTranscriptionJobMutationVariables>;
-export const GetAllJobsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getAllJobs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getJobs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"filename"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"transcriptionText"}}]}}]}}]} as unknown as DocumentNode<GetAllJobsQuery, GetAllJobsQueryVariables>;
+export const GetAllJobsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getAllJobs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getJobs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"filename"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"transcriptionText"}},{"kind":"Field","name":{"kind":"Name","value":"presignedUrl"}}]}}]}}]} as unknown as DocumentNode<GetAllJobsQuery, GetAllJobsQueryVariables>;

@@ -15,11 +15,11 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "mutation createTranscriptionJob($audio: Upload!) {\n  createTranscriptionJob(audio: $audio)\n}": typeof types.CreateTranscriptionJobDocument,
-    "query getAllJobs {\n  getJobs {\n    id\n    filename\n    status\n    updatedAt\n    transcriptionText\n  }\n}": typeof types.GetAllJobsDocument,
+    "query getAllJobs {\n  getJobs {\n    id\n    filename\n    status\n    updatedAt\n    transcriptionText\n    presignedUrl\n  }\n}": typeof types.GetAllJobsDocument,
 };
 const documents: Documents = {
     "mutation createTranscriptionJob($audio: Upload!) {\n  createTranscriptionJob(audio: $audio)\n}": types.CreateTranscriptionJobDocument,
-    "query getAllJobs {\n  getJobs {\n    id\n    filename\n    status\n    updatedAt\n    transcriptionText\n  }\n}": types.GetAllJobsDocument,
+    "query getAllJobs {\n  getJobs {\n    id\n    filename\n    status\n    updatedAt\n    transcriptionText\n    presignedUrl\n  }\n}": types.GetAllJobsDocument,
 };
 
 /**
@@ -43,7 +43,7 @@ export function graphql(source: "mutation createTranscriptionJob($audio: Upload!
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query getAllJobs {\n  getJobs {\n    id\n    filename\n    status\n    updatedAt\n    transcriptionText\n  }\n}"): (typeof documents)["query getAllJobs {\n  getJobs {\n    id\n    filename\n    status\n    updatedAt\n    transcriptionText\n  }\n}"];
+export function graphql(source: "query getAllJobs {\n  getJobs {\n    id\n    filename\n    status\n    updatedAt\n    transcriptionText\n    presignedUrl\n  }\n}"): (typeof documents)["query getAllJobs {\n  getJobs {\n    id\n    filename\n    status\n    updatedAt\n    transcriptionText\n    presignedUrl\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
