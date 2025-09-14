@@ -3,7 +3,7 @@ import { MyJobs } from '../components/features/my-jobs';
 import { UploadAudio } from '../components/features/upload-audio';
 import { notFound } from 'next/navigation';
 import { SERVER_URL } from '@/libs/constants/url.constants';
-import { graphql } from '@/graphql/gql';
+import { Metadata } from 'next';
 
 const fetchJobs = async () => {
 	try {
@@ -12,6 +12,7 @@ const fetchJobs = async () => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
+			// todo: Переделать на import
 			body: JSON.stringify({
 				query: `query getJobs {getJobs {
 				id
@@ -32,6 +33,11 @@ const fetchJobs = async () => {
 		return notFound();
 	}
 };
+
+export const metadata: Metadata = {
+	title: 'Сервис транскрибации аудио',
+	description: 'Загрузите аудиофайл — получите транскрибацию'
+}
 
 export default async function Home() {
 	const { getJobs } = await fetchJobs();

@@ -16,7 +16,7 @@ export function useUploadAudio() {
 	const handleUpload = async ({ file, onError }: any) => {
 		setIsUploading(true);
 		try {
-			const { data } = await createTranscriptionJob({
+			await createTranscriptionJob({
 				variables: { audio: file },
 			});
 			setIsUploading(false);

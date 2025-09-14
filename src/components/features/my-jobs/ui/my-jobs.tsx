@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	Avatar,
 	Button,
@@ -20,6 +20,8 @@ import {
 	LoadingOutlined,
 } from '@ant-design/icons';
 import { statusIcon, statusTag } from '@/components/status-tag';
+import classes from './my-jobs.module.scss';
+import { useRouter } from 'next/navigation';
 
 type JobStatus = 'CREATED' | 'SUCCESS' | 'ERROR';
 
@@ -38,6 +40,7 @@ interface Props {
 const { Text, Paragraph } = Typography;
 
 export const MyJobs = ({ jobs = [] }: Props) => {
+	const router = useRouter();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
@@ -51,6 +54,17 @@ export const MyJobs = ({ jobs = [] }: Props) => {
 		setIsModalOpen(false);
 		setSelectedJob(null);
 	};
+
+	useEffect(() => {
+		const fetchData = async () => {
+			router.refresh();
+		};
+
+		fetchData();
+		const interval = setInterval(fetchData, 5000);
+
+		return () => clearInterval(interval);
+	}, []);
 
 	return (
 		<>
@@ -114,13 +128,7 @@ export const MyJobs = ({ jobs = [] }: Props) => {
 											</Space>
 
 											{job.status === 'ERROR' && (
-												<Space
-													style={{
-														background: '#fff1f0',
-														borderRadius: 8,
-														padding: '6px 10px',
-													}}
-												>
+												<Space className={classes.errorContainer}>
 													<CloseCircleTwoTone twoToneColor="#ff4d4f" />
 													<Text type="danger">Ошибка обработки</Text>
 												</Space>
@@ -165,15 +173,7 @@ export const MyJobs = ({ jobs = [] }: Props) => {
 				{selectedJob?.transcriptionText ? (
 					<Paragraph
 						copyable={{ text: selectedJob.transcriptionText }}
-						style={{
-							whiteSpace: 'pre-wrap',
-							margin: 0,
-							maxHeight: '60vh',
-							overflow: 'auto',
-							background: '#fafafa',
-							borderRadius: 8,
-							padding: '12px 14px',
-						}}
+						className={classes.transcriptionText}
 					>
 						{selectedJob.transcriptionText}
 					</Paragraph>
