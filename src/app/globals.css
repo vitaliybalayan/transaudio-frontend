@@ -1,0 +1,41 @@
+/* app/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-grad-from: #f8fafc;
+  --bg-grad-via: #eef2ff;
+  --bg-grad-to: #fdf2f8;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  background: linear-gradient(145deg, var(--bg-grad-from), var(--bg-grad-via), var(--bg-grad-to));
+  background-attachment: fixed;
+}
+.ant-layout {
+  background: transparent !important;
+}
+.container {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+.card-shadow {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.05),
+    0 8px 24px rgba(16, 24, 40, 0.08);
+}
+.header-gradient {
+  background: radial-gradient(1000px 400px at 10% -10%, rgba(99,102,241,0.15), transparent 70%),
+              radial-gradient(800px 300px at 90% 0%, rgba(236,72,153,0.12), transparent 70%);
+  border-radius: 24px;
+}
+
+header {
+  margin-top: 50px;
+}

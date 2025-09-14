@@ -1,0 +1,3 @@
+mutation createTranscriptionJob($audio: Upload!) {
+	createTranscriptionJob(audio: $audio)
+}

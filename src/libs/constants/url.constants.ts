@@ -1,0 +1,1 @@
+export const SERVER_URL = process.env.NEXT_BACKEND_URL as string

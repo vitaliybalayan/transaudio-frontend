@@ -1,0 +1,9 @@
+query getAllJobs {
+	getJobs {
+		id
+		filename
+		status
+		updatedAt
+		transcriptionText
+	}
+}
