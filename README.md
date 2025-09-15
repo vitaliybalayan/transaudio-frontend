@@ -7,7 +7,7 @@
    ```
    NEXT_PUBLIC_BACKEND_URL=http://localhost:4000/graphql
    ```  
-   Замените `http://localhost:4000/graphql` на актуальный адрес вашего GraphQL-бэкенда (например, `http://api.example.com/graphql`).
+   Замените `http://localhost:4000/graphql` на актуальный адрес вашего GraphQL-бэкенда.
 
 2. **Установка зависимостей**  
    Установите все необходимые зависимости проекта:  
